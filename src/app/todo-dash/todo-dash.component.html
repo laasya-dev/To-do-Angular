@@ -1,0 +1,38 @@
+<section class="Add">
+        <form [formGroup]= "todoForm">
+            <input formControlName="item" type="text" class="form-control" placeholder="Add Task"  />
+            <button *ngIf="!EditEnabled" (click)="addTask()" [disabled]="todoForm.invalid" class="add-btn"> Add</button>
+            <button *ngIf="EditEnabled" (click)="updateTask()" [disabled]="todoForm.invalid" class="upd-btn">Update</button>
+            <!-- (click)="updateTask()" -->
+        </form>
+</section>
+<section class="Display">
+    <div cdkDropListGroup class="flex gap section-div">
+        <div class="Display-div">
+            <div class="flex ff-normal div-title">Todo</div>
+            <div class="example-container">
+                <div cdkDropList [cdkDropListData]="tasks" class="example-list" (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let item of tasks; let i= index" cdkDrag>{{item.description}}
+                        <div class="Dp-btn">
+                            <button mat-icon-button color="warn" (click)="delTask(i)"><mat-icon>delete</mat-icon></button>
+                            <button mat-icon-button color="primary" (click)="onEdit(item,i)"><mat-icon>edit</mat-icon></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Display-div">
+            <div class="flex ff-normal div-title">Done</div>
+            <div class="example-container">
+                <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let item of done; let i= index" cdkDrag>{{item.description}}
+                        <div class="Dp-btn">
+                            <button mat-icon-button color="warn" (click)="deldoneTask(i)"><mat-icon>delete</mat-icon></button>
+                            <button mat-icon-button color="accent"><mat-icon>check_circle</mat-icon></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
